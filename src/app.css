@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  font-family: 'Roboto';
+}
+
+.playfair-display {
+  font-family: 'Playfair Display'
+}
+
+.roboto-mono {
+  font-family: 'Roboto Mono'
+}
+
+html {
+  background-color: theme(colors.secondary-blue);
+}
