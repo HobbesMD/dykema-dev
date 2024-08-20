@@ -1,5 +1,6 @@
 <script>
-	import Experience from "$lib/experience.svelte";
+	import ContactForm from "$lib/contactForm.svelte";
+import Experience from "$lib/experience.svelte";
 
 </script>
 
@@ -40,16 +41,18 @@
       </ul>
     </nav>
     <div class="px-8 w-full">
-      <section id="about" class="mt-8">
-        <p class="text-slate-300">Some about me text.</p>
+      <section id="about" class="mt-8 text-slate-300">
+        <p class="pb-8">When I first went to college, despite my previous experience and interest in coding, I did not think I was capable of sitting at a desk all day writing code. Well, I don't think fate wanted me to be an electrical engineer because here I am. And you know what, I kinda like this gig.</p>
+        <p class="pb-8">I find satisfaction in a wide variety of tasks from designing UIs to optimizing queries. I love being able to take a concept all the way from design to deployment, but really I just want to make high-quality software and learn something along the way.</p>
+        <p class="pb-8">My compulsion to learn, design, and create is far from limited to coding. Food and drink is one of my love languages and lets me be experimental. I also love to build with my hands, whether it's converting a van to travel in or building a bed frame. If I'm not at home though, I'm probably out playing disc golf, pickleball, or hockey.</p>
       </section>
-      <section id="experience">
+      <section id="experience" class="pt-20">
         <ol>
           <Experience company="Auto-Owners Insurance" 
             companyUrl="https://www.auto-owners.com/"
             startDate={new Date(2022, 8)}
             titles={["Software Engineer"]} 
-            responsibilities="Text about time there." 
+            responsibilities="Work with affiliate company to migrate lines of business over to AO. Handle a variety of full-stack tasks including building new quoting UI and system routing back-end, creating new microservice to refactor old SQL data purging process, and building a new tool for automating end-of-month processes." 
             skills={["C#", ".NET Framework", "SQL","Azure", "JavaScript", "HTML", "SCSS"]}
             />
           <Experience company="AvaSure" 
@@ -57,10 +60,14 @@
             startDate={new Date(2017, 2)}
             endDate={new Date(2022, 8)}
             titles={["Software Development Engineer in Test", "SDET Itern", "Quality Assurance"]} 
-            responsibilities="" 
+            responsibilities="Designed and built API and algorithm to support fully automated test scheduling and resource allocation. Wrote automated end-to-end test coverage. Collected data and generated reports to track and improve efficiency." 
             skills={["C#", ".NET Core", "SQL", "MongoDB", "React", "JavaScript", "HTML", "SCSS", "Node.js", "Selenium"]}
             />
         </ol>
+      </section>
+      <section id="contact" class="flex flex-col items-center mt-12 mb-16">
+        <h1 class="text-slate-200 text-xl mb-4">Want to get in contact?</h1>
+        <ContactForm />
       </section>
     </div>
   </main>
