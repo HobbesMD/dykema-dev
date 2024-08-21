@@ -1,6 +1,45 @@
 <script>
 	import ContactForm from "$lib/contactForm.svelte";
-import Experience from "$lib/experience.svelte";
+  import Experience from "$lib/experience.svelte";
+	import { onMount } from "svelte";
+
+  onMount(() => {
+    const sections = document.querySelectorAll('section');
+    const config = {
+      rootMargin: '-300px 0px -95%'
+    };
+
+    let observer = new IntersectionObserver(function (entries, self) {
+      entries.forEach(entry => {
+        console.log(entry);
+        if (entry.isIntersecting) {
+          intersectionHandler(entry); 
+        }
+      });
+    }, config);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    /**
+     * @param {IntersectionObserverEntry} entry
+     */
+    function intersectionHandler(entry) {
+      const id = entry.target.id;
+      console.log(id)
+
+      const currentlyActive = document.querySelector('nav a.active');
+      const shouldBeActive = document.querySelector('nav a[href="#' + id + '"]');
+
+      if (currentlyActive) {
+        currentlyActive.classList.remove('active');
+      }
+      if (shouldBeActive) {
+        shouldBeActive.classList.add('active');
+      }
+    }
+  })
 
 </script>
 
@@ -14,12 +53,12 @@ import Experience from "$lib/experience.svelte";
       </div>
       <p class="w-full text-center text-slate-600 uppercase pt-64 roboto-mono">Michael Dykema</p>
       <ul class="flex justify-center space-x-4 text-slate-600 pt-2">
-        <li>
+        <li title="LinkedIn">
           <a href="https://www.linkedin.com/in/michaeldykema/" target="_blank">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-10 w-10" aria-hidden="true"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path></svg>
           </a>
         </li>
-        <li>
+        <li title="Github">
           <a href="https://github.com/HobbesMD" target="_blank">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-10 w-10" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
           </a>
@@ -30,7 +69,7 @@ import Experience from "$lib/experience.svelte";
       <nav class="sticky top-0 z-10 bg-gradient-to-b from-secondary-blue from-75% to-transparent">
         <ul class="flex justify-around pt-16 pb-12">
           <li>
-            <a href="#about" class="text-stone-100 text-2xl roboto-mono">About</a>
+            <a href="#about" class="text-stone-100 text-2xl roboto-mono hover:text-orange active">About</a>
           </li>
           <li>
             <a href="#experience" class="text-stone-100 text-2xl roboto-mono">Experience</a>
@@ -65,7 +104,7 @@ import Experience from "$lib/experience.svelte";
               />
           </ol>
         </section>
-        <section id="contact" class="flex flex-col items-center mt-12 mb-16">
+        <section id="contact" class="flex flex-col items-center mt-24 mb-64">
           <h1 class="text-slate-200 text-xl mb-4">Want to get in contact?</h1>
           <ContactForm />
         </section>
@@ -73,3 +112,9 @@ import Experience from "$lib/experience.svelte";
     </main>
   </div>
 </div>
+
+<style>
+  .active {
+    color: theme(colors.orange);
+  }
+</style>
