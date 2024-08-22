@@ -51,7 +51,7 @@
         <h1 class="text-orange playfair-display font-semibold text-8xl sm:text-9xl lg:text-8xl xl:text-9xl">Michael.</h1>
         <h2 class="text-stone-200 text-3xl mt-16">I’m a Full-Stack Engineer.</h2>
       </div>
-      <p class="w-full text-center text-slate-600 uppercase pt-64 roboto-mono">Michael Dykema</p>
+      <p class="w-full text-center text-slate-500 uppercase pt-64 roboto-mono">Michael Dykema</p>
       <ul class="flex justify-center space-x-4 text-slate-600 pt-2">
         <li title="LinkedIn">
           <a href="https://www.linkedin.com/in/michaeldykema/" target="_blank">
@@ -104,10 +104,15 @@
               />
           </ol>
         </section>
-        <section id="contact" class="flex flex-col items-center pt-24 mb-64">
+        <section id="contact" class="flex flex-col items-center pt-24 mb-36">
           <h1 class="text-slate-200 text-xl mb-4">Want to get in contact?</h1>
           <ContactForm />
         </section>
+        <div class="text-slate-700 w-fit mx-auto mb-12">
+          <p>Designed in <b class="text-slate-500">Figma</b>.</p>
+          <p>Built with <b class="text-slate-500">Svelte</b> + <b class="text-slate-500">Tailwind CSS</b>.</p>
+          <p>Deployed on <b class="text-slate-500">Vercel</b>.</p>
+        </div>
       </div>
     </main>
   </div>
