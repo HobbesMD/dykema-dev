@@ -26,7 +26,7 @@
 <li class="grid grid-cols-9 cursor-default max-w-full mb-12">
   <p class="text-slate-400 roboto-mono text-md align-bottom col-span-2">{startDateString} — {endDateString}</p>
   <div class="ml-4 col-span-7">
-    <a class="roboto-mono font-bold text-slate-100 text-lg hover:" href={companyUrl} target="_blank" rel="noreferrer noopener">{company} ↗</a>
+    <a class="roboto-mono font-bold text-slate-100 text-lg hover:text-orange" href={companyUrl} target="_blank" rel="noreferrer noopener">{company} ↗</a>
     {#each titles as title}
       <h4 class="roboto-mono font-medium {title == titles[0] ? "text-slate-300" : "text-slate-600"}">{title}</h4>
     {/each}

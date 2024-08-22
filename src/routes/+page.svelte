@@ -93,7 +93,7 @@
               titles={["Software Engineer"]} 
               responsibilities="Work with affiliate company to migrate lines of business over to AO. Handle a variety of full-stack tasks including building new quoting UI and system routing back-end, creating new microservice to refactor old SQL data purging process, and building a new tool for automating end-of-month processes." 
               skills={["C#", ".NET Framework", "SQL","Azure", "JavaScript", "HTML", "SCSS"]}
-              />
+            />
             <Experience company="AvaSure" 
               companyUrl="https://avasure.com/"
               startDate={new Date(2017, 2)}
@@ -101,7 +101,10 @@
               titles={["Software Development Engineer in Test", "SDET Itern", "Quality Assurance"]} 
               responsibilities="Designed and built API and algorithm to support fully automated test scheduling and resource allocation. Wrote automated end-to-end test coverage. Collected data and generated reports to track and improve efficiency." 
               skills={["C#", ".NET Core", "SQL", "MongoDB", "React", "JavaScript", "HTML", "SCSS", "Node.js", "Selenium"]}
-              />
+            />
+            <div class="text-slate-300 hover:text-orange">
+              <a href="/resume.pdf" target="_blank" rel="noreferrer noopener">View Full Résumé ↗</a>
+            </div>
           </ol>
         </section>
         <section id="contact" class="flex flex-col items-center pt-24 mb-36">
