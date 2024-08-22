@@ -44,11 +44,11 @@
 </script>
 
 <div>
-  <div class="flex">
-    <header class="sticky top-0 max-h-screen">
-      <div class="ml-auto mr-0 md:mr-16 xl:mr-32 mt-64">
+  <div class="lg:flex">
+    <header class="lg:sticky lg:top-0 max-h-screen lg:w-1/2 lg:justify-end">
+      <div class="w-fit mx-auto mt-64">
         <h2 class="text-stone-200 text-3xl">Hi, my name is</h2>
-        <h1 class="text-orange playfair-display font-semibold text-8xl xl:text-9xl">Michael.</h1>
+        <h1 class="text-orange playfair-display font-semibold text-8xl sm:text-9xl lg:text-8xl xl:text-9xl">Michael.</h1>
         <h2 class="text-stone-200 text-3xl mt-16">I’m a Full-Stack Engineer.</h2>
       </div>
       <p class="w-full text-center text-slate-600 uppercase pt-64 roboto-mono">Michael Dykema</p>
@@ -65,8 +65,8 @@
         </li>
       </ul>
     </header>
-    <main class="w-2/3">
-      <nav class="sticky top-0 z-10 bg-gradient-to-b from-secondary-blue from-75% to-transparent">
+    <main class="">
+      <nav class="fixed lg:sticky w-full top-0 z-10 bg-gradient-to-b from-secondary-blue from-75% to-transparent">
         <ul class="flex justify-around pt-16 pb-12">
           <li>
             <a href="#about" class="text-stone-100 text-2xl roboto-mono hover:text-orange active">About</a>
@@ -79,7 +79,7 @@
           </li>
         </ul>
       </nav>
-      <div class="px-8 w-full">
+      <div class="px-8 sm:w-full max-w-2xl pt-24 mx-auto">
         <section id="about" class="text-slate-300 scroll-m-64">
           <p class="pb-8">When I first went to college, despite my previous experience and interest in coding, I did not think I was capable of sitting at a desk all day writing code. Well, I don't think fate wanted me to be an electrical engineer because here I am. And you know what, I kinda like this gig.</p>
           <p class="pb-8">I find satisfaction in a wide variety of tasks from designing UIs to optimizing queries. I love being able to take a concept all the way from design to deployment, but really I just want to make high-quality software and learn something along the way.</p>
@@ -104,7 +104,7 @@
               />
           </ol>
         </section>
-        <section id="contact" class="flex flex-col items-center mt-24 mb-64">
+        <section id="contact" class="flex flex-col items-center pt-24 mb-64">
           <h1 class="text-slate-200 text-xl mb-4">Want to get in contact?</h1>
           <ContactForm />
         </section>
