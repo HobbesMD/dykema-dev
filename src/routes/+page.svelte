@@ -67,7 +67,7 @@
     </header>
     <main class="">
       <nav class="fixed lg:sticky w-full top-0 z-10 bg-gradient-to-b from-secondary-blue from-75% to-transparent">
-        <ul class="flex justify-around pt-16 pb-12">
+        <ul class="flex justify-around pt-8 md:pt-16 pb-12">
           <li>
             <a href="#about" class="text-stone-100 text-2xl roboto-mono hover:text-orange active">About</a>
           </li>
@@ -103,7 +103,7 @@
               skills={["C#", ".NET Core", "SQL", "MongoDB", "React", "JavaScript", "HTML", "SCSS", "Node.js", "Selenium"]}
             />
             <div class="text-slate-300 hover:text-orange">
-              <a href="/resume.pdf" target="_blank" rel="noreferrer noopener">View Full Résumé ↗</a>
+              <a href="./files/resume.pdf" target="_blank" rel="noreferrer noopener">View Full Résumé ↗</a>
             </div>
           </ol>
         </section>
