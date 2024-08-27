@@ -5,18 +5,19 @@
 
   onMount(() => {
     const sections = document.querySelectorAll('section');
-    const config = {
-      rootMargin: '-300px 0px -95%'
+    const options = {
+      root: null,
+      rootMargin: '-50% 0px -50%',
+      threshold: 0
     };
 
     let observer = new IntersectionObserver(function (entries, self) {
       entries.forEach(entry => {
-        console.log(entry);
         if (entry.isIntersecting) {
           intersectionHandler(entry); 
         }
       });
-    }, config);
+    }, options);
 
     sections.forEach(section => {
       observer.observe(section);
