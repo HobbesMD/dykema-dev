@@ -10,5 +10,6 @@ export default defineConfig({
 				'/resume.pdf'
 			]
 		}
-	}
+	},
+	assetsInclude: ['**/*.pdf'],
 });

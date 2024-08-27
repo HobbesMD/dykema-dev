@@ -18,3 +18,7 @@ html {
   background-color: theme(colors.secondary-blue);
   scroll-behavior: smooth;
 }
+
+.active {
+  color: theme(colors.orange);
+}

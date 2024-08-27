@@ -103,7 +103,7 @@
               skills={["C#", ".NET Core", "SQL", "MongoDB", "React", "JavaScript", "HTML", "SCSS", "Node.js", "Selenium"]}
             />
             <div class="text-slate-300 hover:text-orange">
-              <a href="./files/resume.pdf" target="_blank" rel="noreferrer noopener">View Full Résumé ↗</a>
+              <a href="./resume.pdf" target="_blank" rel="noreferrer noopener">View Full Résumé ↗</a>
             </div>
           </ol>
         </section>
@@ -122,7 +122,4 @@
 </div>
 
 <style>
-  .active {
-    color: theme(colors.orange);
-  }
 </style>
