@@ -82,9 +82,9 @@
       </nav>
       <div class="px-8 sm:w-full max-w-2xl pt-24 mx-auto">
         <section id="about" class="text-slate-300 scroll-m-64">
-          <p class="pb-8">My interest in coding started with the first program I ever wrote: a text-based blackjack game I made when I was a sophomore in high school. My actual career in software development started rather unusually with building medical devices as a temporary gig. From there, I became a Quality Assurance tester, and then a Software Test Automation Engineer, and now a Software Engineer. It wasn&#39;t the path I had envisioned back in high school, but I think it&#39;s made me better developer.</p>
+          <p class="pb-8">My interest in coding started with the first program I ever wrote: a text-based blackjack game I made when I was a sophomore in high school. My career in software development started rather unusually with building medical devices as a temporary gig. From there, I became a Quality Assurance tester, and then a Software Test Automation Engineer, and now a Software Engineer. It wasn&#39;t the path I had envisioned back in high school, but I think it&#39;s made me better developer.</p>
           <p class="pb-8">I find satisfaction in a wide variety of tasks from designing UIs to optimizing queries. I love being able to take a concept all the way from design to deployment, but really I just want to make high-quality software and learn something along the way.</p>
-          <p class="pb-8">My compulsion to learn, design, and create is far from limited to coding. Food and drink is one of my love languages and lets me be experimental. I also love to build with my hands, whether it's converting a van to travel in or building a bed frame. If I'm not at home though, I'm probably out playing disc golf, pickleball, or hockey.</p>
+          <p class="pb-8">My love of learning, designing, and creating is not limited to coding. Food is one of my love languages and lets me be experimental. I also love to build with my hands, whether it's converting a van to travel in or building a custom wood bed frame. And if I am not at home doing these things, you will most likely find me out playing disc golf, pickleball, or hockey.</p>
         </section>
         <section id="experience" class="pt-20 scroll-m-20">
           <ol>
