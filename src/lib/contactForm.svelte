@@ -32,7 +32,7 @@
 <form
 	action="https://formspree.io/f/xvgpbybr"
 	method="POST"
-	class="flex flex-col"
+	class="flex w-full max-w-[560px] flex-col"
 	on:submit|preventDefault={handleSubmit}
 >
 	<label for="contact-name" class="text-[15px] font-semibold">Name</label>

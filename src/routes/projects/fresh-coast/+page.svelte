@@ -1,6 +1,4 @@
 <script lang="ts">
-	import DockArt from '$lib/dockArt.svelte';
-
 	const title = 'Fresh Coast Dock & Lift — Case study — Michael Dykema';
 	const description =
 		'How I rebuilt a West Michigan dock company’s website into an editable marketing site with a Sanity CMS, a quote pipeline, and an interactive dock designer, working with an AI coding agent.';
@@ -37,6 +35,7 @@
 	<meta property="og:url" content="https://dykema.dev/projects/fresh-coast" />
 	<meta property="og:title" content="Fresh Coast Dock & Lift — case study" />
 	<meta property="og:description" content={description} />
+	<meta property="og:image" content="https://dykema.dev/projects/fresh-coast-full.jpg" />
 </svelte:head>
 
 <article>
@@ -70,9 +69,15 @@
 	</header>
 
 	<div class="wrap">
-		<div class="aspect-[16/9] overflow-hidden rounded-2xl border-2 border-ink bg-ink md:aspect-[21/9]">
-			<DockArt />
-		</div>
+		<figure class="overflow-hidden rounded-2xl border-2 border-ink bg-ink">
+			<img
+				src="/projects/fresh-coast-full.jpg"
+				alt="The Fresh Coast Dock & Lift homepage: a “Lake living, made easy.” headline over a photo of docks and covered boat lifts, with quick links to book, repair, shop and design a dock."
+				width="1920"
+				height="990"
+				class="block h-auto w-full"
+			/>
+		</figure>
 	</div>
 
 	<div class="wrap">

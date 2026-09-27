@@ -25,9 +25,8 @@
 		{ label: 'Playing', text: 'Disc golf, pickleball, and hockey.' }
 	];
 
-	// Set to a path under /static (e.g. '/projects/fresh-coast.jpg') once a screenshot exists;
-	// until then the card shows the dock illustration.
-	const freshCoastImage: string | null = null;
+	// Screenshot under /static; set to null to fall back to the dock illustration.
+	const freshCoastImage: string | null = '/projects/fresh-coast.jpg';
 
 	onMount(() => {
 		const sections = document.querySelectorAll<HTMLElement>('section[id]');
@@ -60,19 +59,19 @@
 
 <!-- Hero -->
 <section
-	class="wrap grid items-end gap-10 pb-16 pt-14 md:pb-24 md:pt-24 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-24 lg:pb-28 lg:pt-28"
+	class="wrap grid items-end gap-10 pb-16 pt-14 md:pb-24 md:pt-24 lg:pb-28 lg:pt-28 xl:grid-cols-[minmax(0,1fr)_340px] xl:gap-20"
 	aria-labelledby="hero-heading"
 >
 	<div class="flex flex-col gap-6 md:gap-8">
 		<p class="kicker">Michael Dykema — Senior .NET Developer</p>
 		<h1
 			id="hero-heading"
-			class="font-display text-[44px] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-6xl md:text-7xl lg:text-8xl xl:text-[112px] xl:leading-[1.02]"
+			class="font-display text-[44px] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-6xl md:text-7xl lg:text-8xl min-[1400px]:text-[112px] min-[1400px]:leading-[1.02]"
 		>
 			I build software that’s <span class="marker">built to last.</span>
 		</h1>
 	</div>
-	<div class="flex flex-col gap-7 lg:pb-3">
+	<div class="flex max-w-[560px] flex-col gap-7 xl:pb-3">
 		<p class="text-lg leading-relaxed text-ink-soft md:text-[19px]">
 			Backend services and developer-platform modernization at Auto-Owners Insurance. I find the
 			process gaps, pitch the fix, and own it from architecture through production.
@@ -102,7 +101,7 @@
 </div>
 
 <!-- About -->
-<section id="about" class="wrap grid gap-8 pt-24 md:pt-28 lg:grid-cols-[360px_minmax(0,1fr)] lg:gap-24 lg:pt-32">
+<section id="about" class="wrap grid gap-8 pt-24 md:pt-28 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-12 lg:pt-32 xl:grid-cols-[360px_minmax(0,1fr)] xl:gap-24">
 	<SectionHeading number="01" title="About" />
 	<div class="flex max-w-[760px] flex-col gap-6">
 		<p class="text-lg leading-relaxed text-ink-soft md:text-xl md:leading-[1.7]">
@@ -144,23 +143,25 @@
 	<SectionHeading number="03" title="Projects" />
 	<div class="mt-10 flex flex-col gap-8">
 		<article
-			class="grid overflow-hidden rounded-2xl border-2 border-ink bg-white lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]"
+			class="grid overflow-hidden rounded-2xl border-2 border-ink bg-white xl:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]"
 		>
 			<div
-				class="relative aspect-[4/3] border-b-2 border-ink bg-ink lg:aspect-auto lg:min-h-[520px] lg:border-b-0 lg:border-r-2"
+				class="relative aspect-[4/3] border-b-2 border-ink bg-ink md:aspect-[16/10] xl:aspect-auto xl:min-h-[520px] xl:border-b-0 xl:border-r-2"
 			>
 				{#if freshCoastImage}
 					<img
 						src={freshCoastImage}
 						alt="The Fresh Coast Dock & Lift homepage"
-						class="absolute inset-0 h-full w-full object-cover object-top"
+						width="1200"
+						height="984"
+						class="absolute inset-0 h-full w-full object-cover object-left-top"
 						loading="lazy"
 					/>
 				{:else}
 					<div class="absolute inset-0"><DockArt /></div>
 				{/if}
 			</div>
-			<div class="flex flex-col gap-4 p-7 md:p-10 lg:p-12">
+			<div class="flex flex-col gap-4 p-7 md:p-10 xl:p-12">
 				<div class="flex gap-2">
 					<span class="pill bg-orange">Client work</span>
 					<span class="pill border border-ink">2026</span>
@@ -224,12 +225,12 @@
 <div class="wrap pt-24 md:pt-28 lg:pt-36">
 	<section
 		id="contact"
-		class="grid gap-10 rounded-3xl bg-orange p-7 sm:p-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)] lg:gap-20 lg:p-20"
+		class="grid gap-10 rounded-3xl bg-orange p-7 sm:p-12 xl:grid-cols-[minmax(0,1fr)_minmax(0,500px)] xl:gap-20 xl:p-20"
 		aria-labelledby="contact-heading"
 	>
 		<div class="flex flex-col gap-6">
 			<p class="font-mono text-sm tracking-[0.14em]" aria-hidden="true">04</p>
-			<h2 id="contact-heading" class="font-display text-6xl font-semibold leading-none lg:text-[88px]">
+			<h2 id="contact-heading" class="font-display text-6xl font-semibold leading-none xl:text-7xl min-[1400px]:text-[88px]">
 				Let’s talk.
 			</h2>
 			<p class="max-w-[440px] text-lg leading-relaxed md:text-xl">

@@ -6,7 +6,7 @@
 </script>
 
 <article
-	class="grid gap-4 border-b border-ink/15 py-10 last:border-b-0 md:grid-cols-[180px_minmax(0,1fr)] md:gap-x-10 lg:grid-cols-[220px_300px_minmax(0,1fr)] lg:gap-12 lg:py-12"
+	class="grid gap-4 border-b border-ink/15 py-10 last:border-b-0 md:grid-cols-[180px_minmax(0,1fr)] md:gap-x-10 lg:py-12 xl:grid-cols-[200px_280px_minmax(0,1fr)] xl:gap-12"
 >
 	<p class="font-display text-2xl font-medium leading-tight md:text-3xl lg:text-4xl">
 		{job.start}{#if job.end}–<br class="hidden md:inline" />{job.end}{/if}
@@ -38,7 +38,7 @@
 	</div>
 
 	{#if job.highlights.length}
-		<div class="flex flex-col gap-5 md:col-start-2 lg:col-start-auto">
+		<div class="flex flex-col gap-5 md:col-start-2 xl:col-start-auto">
 			<ul class="bullets text-[17px] leading-relaxed text-ink-soft">
 				{#each job.highlights as highlight}
 					<li>{highlight}</li>
