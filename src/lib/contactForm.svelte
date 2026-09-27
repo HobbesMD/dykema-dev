@@ -1,51 +1,72 @@
 <script lang="ts">
-  let formStatus:string = '';
+	type Status = 'idle' | 'sending' | 'sent' | 'error';
 
-  async function handleSubmit(event: SubmitEvent) {
-    var form = <HTMLFormElement>document.getElementById("contact-form")!;
-    var target = event.target as HTMLFormElement
-    var data = new FormData(target);
+	let status: Status = 'idle';
 
-    fetch(target.action, {
-      method: form.method,
-      body: data,
-      headers: {
-          'Accept': 'application/json'
-      }
-    }).then(response => {
-      if (response.ok) {
-        formStatus = "Thanks for your submission!\nI will get back to you soon.";
-        form.reset()
-      } else {
-        formStatus = "Oops! There was a problem submitting your form.";
-      }
-    }).catch(error => {
-      formStatus = "Oops! There was a problem submitting your form.";
-    });
-  }
+	async function handleSubmit(event: SubmitEvent & { currentTarget: HTMLFormElement }) {
+		const form = event.currentTarget;
+		status = 'sending';
+
+		try {
+			const response = await fetch(form.action, {
+				method: 'POST',
+				body: new FormData(form),
+				headers: { Accept: 'application/json' }
+			});
+
+			if (response.ok) {
+				status = 'sent';
+				form.reset();
+			} else {
+				status = 'error';
+			}
+		} catch {
+			status = 'error';
+		}
+	}
+
+	const field =
+		'h-[52px] w-full rounded-[10px] border-2 border-ink bg-white px-4 text-[17px] text-ink placeholder:text-muted';
 </script>
 
 <form
-  id="contact-form"
-  action="https://formspree.io/f/xvgpbybr"
-  method="post"
-  class="flex flex-col w-96"
-  on:submit|preventDefault={handleSubmit}
+	action="https://formspree.io/f/xvgpbybr"
+	method="POST"
+	class="flex flex-col"
+	on:submit|preventDefault={handleSubmit}
 >
-  <label for="name" class="text-slate-400 roboto-mono text-s">Name <span class="text-orange">*</span></label>
-  <input type="text" name="name" required class="mt-1 py-1 px-2 rounded-md bg-gray-100" placeholder="First Last"/>
+	<label for="contact-name" class="text-[15px] font-semibold">Name</label>
+	<input id="contact-name" name="name" type="text" autocomplete="name" required placeholder="First Last" class="mt-2 {field}" />
 
-  <label for="email" class="mt-2 text-slate-400">Email <span class="text-orange">*</span></label>
-  <input type="email" name="email" required class="mt-1 py-1 px-2 rounded-md bg-gray-100" placeholder="email@site.com"/>
+	<label for="contact-email" class="mt-4 text-[15px] font-semibold">Email</label>
+	<input id="contact-email" name="email" type="email" autocomplete="email" required placeholder="you@company.com" class="mt-2 {field}" />
 
-  <label for="message" class="mt-2 text-slate-400">Message <span class="text-orange">*</span></label>
-  <textarea name="message" rows="6" required class="mt-1 py-1 px-2 rounded-md bg-gray-100" placeholder="What would you like to talk about?" />
+	<label for="contact-message" class="mt-4 text-[15px] font-semibold">Message</label>
+	<textarea
+		id="contact-message"
+		name="message"
+		rows="5"
+		required
+		placeholder="What would you like to talk about?"
+		class="mt-2 w-full resize-none rounded-[10px] border-2 border-ink bg-white px-4 py-3.5 text-[17px] text-ink placeholder:text-muted"
+	></textarea>
 
-  <div class="mt-6 flex justify-center text-orange">
-    {#if formStatus == null || formStatus == ''}
-      <button id="submit-btn" class=" w-fit h-8 px-8 mx-auto rounded-2xl hover:bg-orange hover:text-secondary-blue uppercase roboto-mono font-bold border-orange border-2">Submit</button>
-    {:else}
-      <p id="contact-form-status" class="whitespace-pre-line text-center">{formStatus}</p>
-    {/if}
-  </div>
+	<!-- Honeypot: Formspree drops submissions that fill this in. -->
+	<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+	<button
+		type="submit"
+		class="btn btn-ink mt-6 h-14 w-full text-[17px] disabled:cursor-wait disabled:opacity-70"
+		disabled={status === 'sending'}
+	>
+		{status === 'sending' ? 'Sending…' : 'Send message'}
+	</button>
+
+	<p class="mt-4 min-h-[1.5rem] text-center font-semibold" role="status" aria-live="polite">
+		{#if status === 'sent'}
+			Thanks — I’ll get back to you soon.
+		{:else if status === 'error'}
+			Something went wrong. Please try again or reach me on LinkedIn.
+		{/if}
+	</p>
 </form>

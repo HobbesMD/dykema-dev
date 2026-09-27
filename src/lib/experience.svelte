@@ -1,36 +1,50 @@
 <script lang="ts">
-	import SkillList from "./skillList.svelte";
+	import type { Job } from '$lib/data/experience';
+	import SkillList from './skillList.svelte';
 
-  export let startDate:Date;
-  export let endDate:Date | undefined = undefined;
-  export let company:string;
-  export let companyUrl:string;
-  export let titles:string[];
-  export let responsibilities:string;
-  export let skills:string[];
-
-  let startDateString:string, endDateString:string;
-
-  if (endDate == undefined) {
-    startDateString = startDate.getFullYear().toString();
-    endDateString = "Present";
-  } else if (startDate.getFullYear() != endDate.getFullYear()) {
-    startDateString = startDate.getFullYear().toString();
-    endDateString = endDate.getFullYear().toString();
-  } else {
-    startDateString = startDate.toLocaleString('default', {month: 'short'});
-    endDateString = endDate.toLocaleString('default', {month: 'short'}) + endDate.getFullYear().toString();
-  }
+	export let job: Job;
 </script>
 
-<li class="grid grid-cols-9 cursor-default max-w-full mb-12">
-  <p class="text-slate-400 roboto-mono text-md align-bottom col-span-2 pt-1">{startDateString} — {endDateString}</p>
-  <div class="ml-4 col-span-7">
-    <a class="roboto-mono font-bold text-slate-100 text-lg hover:text-orange" href={companyUrl} target="_blank" rel="noreferrer noopener">{company} ↗</a>
-    {#each titles as title}
-      <h4 class="roboto-mono font-medium {title == titles[0] ? "text-slate-300" : "text-slate-600"}">{title}</h4>
-    {/each}
-    <p class="text-slate-400 my-2">{responsibilities}</p>
-    <SkillList skills={skills}/>
-  </div>
-</li>
+<article
+	class="grid gap-4 border-b border-ink/15 py-10 last:border-b-0 md:grid-cols-[180px_minmax(0,1fr)] md:gap-x-10 lg:grid-cols-[220px_300px_minmax(0,1fr)] lg:gap-12 lg:py-12"
+>
+	<p class="font-display text-2xl font-medium leading-tight md:text-3xl lg:text-4xl">
+		{job.start}{#if job.end}–<br class="hidden md:inline" />{job.end}{/if}
+	</p>
+
+	<div>
+		<h3 class="text-xl font-bold md:text-2xl">
+			{#if job.url}
+				<a
+					href={job.url}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="decoration-2 underline-offset-4 hover:underline"
+				>
+					{job.company} ↗
+				</a>
+			{:else}
+				{job.company}
+			{/if}
+		</h3>
+		{#each job.roles as role, i}
+			<p class="mt-3 text-[17px] {i === 0 ? 'font-semibold' : 'font-medium text-muted'}">
+				{role.title}
+			</p>
+			{#if role.dates}
+				<p class="mt-0.5 font-mono text-sm text-muted">{role.dates}</p>
+			{/if}
+		{/each}
+	</div>
+
+	{#if job.highlights.length}
+		<div class="flex flex-col gap-5 md:col-start-2 lg:col-start-auto">
+			<ul class="bullets text-[17px] leading-relaxed text-ink-soft">
+				{#each job.highlights as highlight}
+					<li>{highlight}</li>
+				{/each}
+			</ul>
+			<SkillList skills={job.stack} />
+		</div>
+	{/if}
+</article>

@@ -1,126 +1,245 @@
-<script>
-	import ContactForm from "$lib/contactForm.svelte";
-  import Experience from "$lib/experience.svelte";
-	import { onMount } from "svelte";
+<script lang="ts">
+	import { onMount } from 'svelte';
+	import { activeSection } from '$lib/stores';
+	import { jobs } from '$lib/data/experience';
+	import Experience from '$lib/experience.svelte';
+	import SectionHeading from '$lib/sectionHeading.svelte';
+	import ContactForm from '$lib/contactForm.svelte';
+	import DockArt from '$lib/dockArt.svelte';
 
-  onMount(() => {
-    const sections = document.querySelectorAll('section');
-    const options = {
-      root: null,
-      rootMargin: '-50% 0px -50%',
-      threshold: 0
-    };
+	const description =
+		'Michael Dykema is a senior .NET developer focused on backend services and developer-platform modernization — Git migrations, CI/CD, and services built to last.';
 
-    let observer = new IntersectionObserver(function (entries, self) {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          intersectionHandler(entry); 
-        }
-      });
-    }, options);
+	const impact = [
+		{
+			figure: '60+',
+			label: '.NET projects and services migrated from TFVC to Git, with new pipelines and code review'
+		},
+		{ figure: '90%', label: 'faster deployments — 10 minutes to under 2 — with CI/CD in Azure Pipelines' },
+		{ figure: '38%', label: 'less database storage from an Archive & Purge microservice I built solo' }
+	];
 
-    sections.forEach(section => {
-      observer.observe(section);
-    });
+	const interests = [
+		{ label: 'Cooking', text: 'Food is a love language — and my favorite place to experiment.' },
+		{ label: 'Building', text: 'A converted travel van and a custom wood bed frame, so far.' },
+		{ label: 'Playing', text: 'Disc golf, pickleball, and hockey.' }
+	];
 
-    /**
-     * @param {IntersectionObserverEntry} entry
-     */
-    function intersectionHandler(entry) {
-      const id = entry.target.id;
-      console.log(id)
+	// Set to a path under /static (e.g. '/projects/fresh-coast.jpg') once a screenshot exists;
+	// until then the card shows the dock illustration.
+	const freshCoastImage: string | null = null;
 
-      const currentlyActive = document.querySelector('nav a.active');
-      const shouldBeActive = document.querySelector('nav a[href="#' + id + '"]');
+	onMount(() => {
+		const sections = document.querySelectorAll<HTMLElement>('section[id]');
+		const observer = new IntersectionObserver(
+			(entries) => {
+				for (const entry of entries) {
+					if (entry.isIntersecting) activeSection.set(entry.target.id);
+				}
+			},
+			{ rootMargin: '-45% 0px -50% 0px' }
+		);
+		sections.forEach((section) => observer.observe(section));
 
-      if (currentlyActive) {
-        currentlyActive.classList.remove('active');
-      }
-      if (shouldBeActive) {
-        shouldBeActive.classList.add('active');
-      }
-    }
-  })
-
+		return () => {
+			observer.disconnect();
+			activeSection.set('');
+		};
+	});
 </script>
 
-<div>
-  <div class="lg:flex">
-    <header class="lg:sticky lg:top-0 max-h-screen lg:w-1/2 lg:justify-end">
-      <div class="w-fit mx-auto mt-64">
-        <h2 class="text-stone-200 text-3xl">Hi, my name is</h2>
-        <h1 class="text-orange playfair-display font-semibold text-8xl sm:text-9xl lg:text-8xl xl:text-9xl">Michael.</h1>
-        <h2 class="text-stone-200 text-3xl mt-16">I’m a Full-Stack Engineer.</h2>
-      </div>
-      <p class="w-full text-center text-slate-500 uppercase pt-64 roboto-mono">Michael Dykema</p>
-      <ul class="flex justify-center space-x-4 text-slate-600 pt-2">
-        <li title="LinkedIn">
-          <a href="https://www.linkedin.com/in/michaeldykema/" target="_blank" class="hover:text-orange">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-10 w-10" aria-hidden="true"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path></svg>
-          </a>
-        </li>
-        <li title="Github">
-          <a href="https://github.com/HobbesMD" target="_blank" class="hover:text-orange">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-10 w-10" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-          </a>
-        </li>
-      </ul>
-    </header>
-    <main class="">
-      <nav class="fixed lg:sticky w-full top-0 z-10 bg-gradient-to-b from-secondary-blue from-75% to-transparent">
-        <ul class="flex justify-around pt-8 md:pt-16 pb-12">
-          <li>
-            <a href="#about" class="text-stone-100 text-2xl roboto-mono hover:text-orange active">About</a>
-          </li>
-          <li>
-            <a href="#experience" class="text-stone-100 text-2xl roboto-mono">Experience</a>
-          </li>
-          <li>
-            <a href="#contact" class="text-stone-100 text-2xl roboto-mono">Contact</a>
-          </li>
-        </ul>
-      </nav>
-      <div class="px-8 sm:w-full max-w-2xl pt-24 mx-auto">
-        <section id="about" class="text-slate-300 scroll-m-64">
-          <p class="pb-8">My interest in coding started with the first program I ever wrote: a text-based blackjack game I made when I was a sophomore in high school. My career in software development started rather unusually with building medical devices as a temporary gig. From there, I became a Quality Assurance tester, and then a Software Test Automation Engineer, and now a Software Engineer. It wasn&#39;t the path I had envisioned back in high school, but I think it&#39;s made me better developer.</p>
-          <p class="pb-8">I enjoy the challenges found within a wide variety of tasks from designing UIs to optimizing queries. There is satisfaction in taking a concept from design to deployment.  More importantly, I find great joy make high-quality software and learn something along the way.</p>
-          <p class="pb-8">My love of learning, designing, and creating is not limited to coding. Food is one of my love languages and lets me be experimental. I also love to build with my hands, whether it's converting a van to travel in or building a custom wood bed frame. And if I am not at home doing these things, you will most likely find me out playing disc golf, pickleball, or hockey.</p>
-        </section>
-        <section id="experience" class="pt-20 scroll-m-20">
-          <ol>
-            <Experience company="Auto-Owners Insurance" 
-              companyUrl="https://www.auto-owners.com/"
-              startDate={new Date(2022, 8)}
-              titles={["Software Engineer"]} 
-              responsibilities="Work with affiliate company to migrate lines of business over to AO. Handle a variety of full-stack tasks including building new quoting UI and system routing back-end, creating new microservice to refactor old SQL data purging process, and building a new tool for automating end-of-month processes." 
-              skills={["C#", ".NET Framework", "SQL","Azure", "JavaScript", "HTML", "SCSS"]}
-            />
-            <Experience company="AvaSure" 
-              companyUrl="https://avasure.com/"
-              startDate={new Date(2017, 2)}
-              endDate={new Date(2022, 8)}
-              titles={["Software Development Engineer in Test", "SDET Itern", "Quality Assurance"]} 
-              responsibilities="Designed and built API and algorithm to support fully automated test scheduling and resource allocation. Wrote automated end-to-end test coverage. Collected data and generated reports to track and improve efficiency." 
-              skills={["C#", ".NET Core", "SQL", "MongoDB", "React", "JavaScript", "HTML", "SCSS", "Node.js", "Selenium"]}
-            />
-            <div class="text-slate-300 hover:text-orange">
-              <a href="./resume.pdf" target="_blank" rel="noreferrer noopener">View Full Résumé ↗</a>
-            </div>
-          </ol>
-        </section>
-        <section id="contact" class="flex flex-col items-center pt-24 mb-36">
-          <h1 class="text-slate-200 text-xl mb-4">Want to get in contact?</h1>
-          <ContactForm />
-        </section>
-        <div class="text-slate-700 w-fit mx-auto mb-12">
-          <p>Designed in <b class="text-slate-500">Figma</b>.</p>
-          <p>Built with <b class="text-slate-500">Svelte</b> + <b class="text-slate-500">Tailwind CSS</b>.</p>
-          <p>Deployed on <b class="text-slate-500">Vercel</b>.</p>
-        </div>
-      </div>
-    </main>
-  </div>
+<svelte:head>
+	<title>Michael Dykema — Senior .NET Developer</title>
+	<meta name="description" content={description} />
+	<link rel="canonical" href="https://dykema.dev/" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://dykema.dev/" />
+	<meta property="og:title" content="Michael Dykema — Senior .NET Developer" />
+	<meta property="og:description" content={description} />
+</svelte:head>
+
+<!-- Hero -->
+<section
+	class="wrap grid items-end gap-10 pb-16 pt-14 md:pb-24 md:pt-24 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-24 lg:pb-28 lg:pt-28"
+	aria-labelledby="hero-heading"
+>
+	<div class="flex flex-col gap-6 md:gap-8">
+		<p class="kicker">Michael Dykema — Senior .NET Developer</p>
+		<h1
+			id="hero-heading"
+			class="font-display text-[44px] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-6xl md:text-7xl lg:text-8xl xl:text-[112px] xl:leading-[1.02]"
+		>
+			I build software that’s <span class="marker">built to last.</span>
+		</h1>
+	</div>
+	<div class="flex flex-col gap-7 lg:pb-3">
+		<p class="text-lg leading-relaxed text-ink-soft md:text-[19px]">
+			Backend services and developer-platform modernization at Auto-Owners Insurance. I find the
+			process gaps, pitch the fix, and own it from architecture through production.
+		</p>
+		<div class="flex flex-wrap gap-3">
+			<a href="#experience" class="btn btn-ink">See my work</a>
+			<a href="#contact" class="btn btn-outline">Get in touch</a>
+		</div>
+	</div>
+</section>
+
+<!-- Impact band -->
+<div class="bg-ink text-paper">
+	<div class="wrap flex flex-col gap-10 py-16 md:py-20">
+		<h2 class="kicker text-mist">Selected impact</h2>
+		<div class="grid gap-10 sm:grid-cols-3 sm:gap-8 lg:gap-16">
+			{#each impact as item}
+				<div class="flex flex-col gap-3">
+					<p class="font-display text-6xl font-semibold leading-none text-orange md:text-7xl lg:text-8xl">
+						{item.figure}
+					</p>
+					<p class="text-base leading-normal md:text-lg">{item.label}</p>
+				</div>
+			{/each}
+		</div>
+	</div>
 </div>
 
-<style>
-</style>
+<!-- About -->
+<section id="about" class="wrap grid gap-8 pt-24 md:pt-28 lg:grid-cols-[360px_minmax(0,1fr)] lg:gap-24 lg:pt-32">
+	<SectionHeading number="01" title="About" />
+	<div class="flex max-w-[760px] flex-col gap-6">
+		<p class="text-lg leading-relaxed text-ink-soft md:text-xl md:leading-[1.7]">
+			My path into software was unusual: a temp job building medical devices turned into QA, then
+			test automation, then engineering. It wasn’t the route I pictured when I wrote a text-based
+			blackjack game as a high-school sophomore, but it made me a better developer.
+		</p>
+		<p class="text-lg leading-relaxed text-ink-soft md:text-xl md:leading-[1.7]">
+			These days I focus on backend services and the platform other developers build on: source
+			control, pipelines, and the processes around them. I’m also piloting AI tooling for my
+			department, and I built my latest client site by directing an AI coding agent.
+		</p>
+		<div class="mt-4 grid gap-6 border-t border-ink/15 pt-7 sm:grid-cols-3">
+			{#each interests as interest}
+				<div>
+					<h3 class="font-mono text-[13px] uppercase tracking-[0.12em] text-muted">{interest.label}</h3>
+					<p class="mt-2 text-[17px] leading-normal">{interest.text}</p>
+				</div>
+			{/each}
+		</div>
+	</div>
+</section>
+
+<!-- Experience -->
+<section id="experience" class="wrap pt-24 md:pt-28 lg:pt-36">
+	<div class="flex flex-wrap items-end justify-between gap-4 border-b-2 border-ink pb-7">
+		<SectionHeading number="02" title="Experience" />
+		<a href="/resume.pdf" target="_blank" rel="noopener" class="link text-[17px]">Full résumé (PDF) ↗</a>
+	</div>
+	<div>
+		{#each jobs as job}
+			<Experience {job} />
+		{/each}
+	</div>
+</section>
+
+<!-- Projects -->
+<section id="projects" class="wrap pt-20 md:pt-24 lg:pt-28">
+	<SectionHeading number="03" title="Projects" />
+	<div class="mt-10 flex flex-col gap-8">
+		<article
+			class="grid overflow-hidden rounded-2xl border-2 border-ink bg-white lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]"
+		>
+			<div
+				class="relative aspect-[4/3] border-b-2 border-ink bg-ink lg:aspect-auto lg:min-h-[520px] lg:border-b-0 lg:border-r-2"
+			>
+				{#if freshCoastImage}
+					<img
+						src={freshCoastImage}
+						alt="The Fresh Coast Dock & Lift homepage"
+						class="absolute inset-0 h-full w-full object-cover object-top"
+						loading="lazy"
+					/>
+				{:else}
+					<div class="absolute inset-0"><DockArt /></div>
+				{/if}
+			</div>
+			<div class="flex flex-col gap-4 p-7 md:p-10 lg:p-12">
+				<div class="flex gap-2">
+					<span class="pill bg-orange">Client work</span>
+					<span class="pill border border-ink">2026</span>
+				</div>
+				<h3 class="font-display text-3xl font-semibold leading-tight md:text-[40px]">
+					Fresh Coast Dock &amp; Lift
+				</h3>
+				<p class="text-lg leading-relaxed text-ink-soft">
+					A marketing site, content system, and interactive dock designer for a West Michigan dock and
+					boat lift company. I was product owner, designer, and lead developer, directing an AI coding
+					agent through the build.
+				</p>
+				<ul class="bullets text-base leading-normal text-ink-soft">
+					<li>Moved all content, including dock pieces, into Sanity so the owner runs the site without a developer.</li>
+					<li>Rebuilt the dock designer. Its logic is shared with the quote API, so the server rebuilds the parts list itself.</li>
+					<li>Quote requests arrive by email with the design and a picture of the layout attached.</li>
+				</ul>
+				<p class="font-mono text-sm text-muted">
+					<span class="sr-only">Stack: </span>Next.js · TypeScript · Tailwind · Sanity · Resend · Vercel
+				</p>
+				<div class="mt-auto flex flex-wrap gap-x-6 gap-y-2 pt-2 text-[17px]">
+					<a href="/projects/fresh-coast" class="link">Read the case study →</a>
+					<a
+						href="https://www.freshcoastdockandlift.com"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="link"
+					>
+						Visit site ↗
+					</a>
+				</div>
+			</div>
+		</article>
+
+		<article
+			class="flex flex-col gap-5 rounded-2xl border-2 border-ink bg-white p-7 md:flex-row md:items-center md:justify-between md:gap-10 md:px-10 md:py-8"
+		>
+			<div class="flex flex-col gap-2.5">
+				<div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+					<h3 class="font-display text-2xl font-semibold md:text-[28px]">Overnight Precipitation Alerter</h3>
+					<span class="pill border border-ink">In progress</span>
+				</div>
+				<p class="text-[17px] leading-relaxed text-ink-soft">
+					A .NET 10 worker and small config API that watch the overnight forecast and push a phone alert
+					when rain or snow is coming.
+				</p>
+			</div>
+			<a
+				href="https://github.com/HobbesMD"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="link shrink-0 text-[17px]"
+			>
+				View on GitHub ↗
+			</a>
+		</article>
+	</div>
+</section>
+
+<!-- Contact -->
+<div class="wrap pt-24 md:pt-28 lg:pt-36">
+	<section
+		id="contact"
+		class="grid gap-10 rounded-3xl bg-orange p-7 sm:p-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)] lg:gap-20 lg:p-20"
+		aria-labelledby="contact-heading"
+	>
+		<div class="flex flex-col gap-6">
+			<p class="font-mono text-sm tracking-[0.14em]" aria-hidden="true">04</p>
+			<h2 id="contact-heading" class="font-display text-6xl font-semibold leading-none lg:text-[88px]">
+				Let’s talk.
+			</h2>
+			<p class="max-w-[440px] text-lg leading-relaxed md:text-xl">
+				Questions, opportunities, or a good disc golf course recommendation — send a note.
+			</p>
+			<div class="mt-auto flex gap-7 text-[17px]">
+				<a href="https://www.linkedin.com/in/michaeldykema/" target="_blank" rel="noopener noreferrer" class="link hover:decoration-ink">LinkedIn ↗</a>
+				<a href="https://github.com/HobbesMD" target="_blank" rel="noopener noreferrer" class="link hover:decoration-ink">GitHub ↗</a>
+			</div>
+		</div>
+		<ContactForm />
+	</section>
+</div>

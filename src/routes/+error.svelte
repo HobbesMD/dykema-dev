@@ -1,14 +1,23 @@
-<script>
-	import { page } from "$app/stores";
+<script lang="ts">
+	import { page } from '$app/stores';
 </script>
 
-<div class="flex flex-col w-full h-screen justify-center items-center roboto-mono">
-  {#if $page.status == 404}
-    <h1 class="text-orange text-9xl">404</h1>
-    <h2 class="text-slate-400 text-5xl mt-8">Where were you trying to go?!</h2>
-  {:else}
-    <h1 class="text-orange text-5xl">You broke something!</h1>
-    <p class="text-slate-400 mt-4 text-2xl">Congratulations?</p>
-  {/if}
-  <a href="/" class="mt-16 text-slate-100 hover:text-orange">Go back home ↩</a>
-</div>
+<svelte:head>
+	<title>{$page.status === 404 ? 'Page not found' : 'Something broke'} — dykema.dev</title>
+</svelte:head>
+
+<section class="wrap flex flex-col items-start gap-6 py-24 md:py-36">
+	<p class="kicker">Error {$page.status}</p>
+	{#if $page.status === 404}
+		<h1 class="font-display text-6xl font-semibold leading-none md:text-8xl">
+			Where were you <span class="marker">trying to go?</span>
+		</h1>
+		<p class="text-lg text-ink-soft">That page doesn’t exist — or it moved.</p>
+	{:else}
+		<h1 class="font-display text-6xl font-semibold leading-none md:text-8xl">
+			You broke <span class="marker">something.</span>
+		</h1>
+		<p class="text-lg text-ink-soft">Congratulations? Try again in a moment.</p>
+	{/if}
+	<a href="/" class="btn btn-ink mt-4">Back home</a>
+</section>
