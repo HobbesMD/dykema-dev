@@ -1,11 +1,14 @@
 <script lang="ts">
 	import type { Job } from '$lib/data/experience';
+	import { reveal } from '$lib/reveal';
 	import SkillList from './skillList.svelte';
 
 	export let job: Job;
 </script>
 
 <article
+	data-reveal
+	use:reveal
 	class="grid gap-4 border-b border-ink/15 py-10 last:border-b-0 md:grid-cols-[180px_minmax(0,1fr)] md:gap-x-10 lg:py-12 xl:grid-cols-[200px_280px_minmax(0,1fr)] xl:gap-12"
 >
 	<p class="font-display text-2xl font-medium leading-tight md:text-3xl lg:text-4xl">
@@ -21,7 +24,7 @@
 					rel="noopener noreferrer"
 					class="decoration-2 underline-offset-4 hover:underline"
 				>
-					{job.company} ↗
+					{job.company} <span class="arrow-ne" aria-hidden="true">↗</span>
 				</a>
 			{:else}
 				{job.company}

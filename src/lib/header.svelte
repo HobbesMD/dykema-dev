@@ -31,21 +31,21 @@
 				{@const active = onHome && $activeSection === link.id}
 				<a
 					href="/#{link.id}"
-					class="py-2 decoration-orange decoration-[3px] underline-offset-8 hover:underline"
-					class:underline={active}
+					class="nav-link py-2"
+					class:is-active={active}
 					aria-current={active ? 'true' : undefined}
 				>
 					{link.label}
 				</a>
 			{/each}
 			<a href="/resume.pdf" target="_blank" rel="noopener" class="btn btn-ink h-11 px-5">
-				Résumé ↗
+				Résumé <span class="arrow-ne" aria-hidden="true">↗</span>
 			</a>
 		</nav>
 
 		<div class="flex items-center gap-2 md:hidden">
 			<a href="/resume.pdf" target="_blank" rel="noopener" class="btn btn-ink h-11 px-4 text-sm">
-				Résumé ↗
+				Résumé <span class="arrow-ne" aria-hidden="true">↗</span>
 			</a>
 			<button
 				type="button"

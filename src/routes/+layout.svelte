@@ -1,7 +1,11 @@
 <script>
+	import { onMount } from 'svelte';
 	import '../app.css';
 	import Header from '$lib/header.svelte';
 	import Footer from '$lib/footer.svelte';
+
+	// Tells app.css the app is live, so scroll-reveal elements wait for their observer.
+	onMount(() => document.documentElement.classList.add('hydrated'));
 </script>
 
 <a

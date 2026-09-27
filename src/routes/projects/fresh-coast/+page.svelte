@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { reveal } from '$lib/reveal';
+
 	const title = 'Fresh Coast Dock & Lift — Case study — Michael Dykema';
 	const description =
 		'How I rebuilt a West Michigan dock company’s website into an editable marketing site with a Sanity CMS, a quote pipeline, and an interactive dock designer, working with an AI coding agent.';
@@ -41,16 +43,19 @@
 <article>
 	<header class="wrap pb-12 pt-10 md:pb-16 md:pt-16">
 		<a href="/#projects" class="link text-[15px]">← All projects</a>
-		<p class="kicker mt-10">Case study · Client work · 2026</p>
-		<h1 class="mt-4 max-w-[1000px] font-display text-5xl font-semibold leading-[1.04] tracking-[-0.02em] md:text-7xl lg:text-[88px]">
-			Fresh Coast <span class="marker">Dock &amp; Lift</span>
+		<p class="kicker rise mt-10">Case study · Client work · 2026</p>
+		<h1
+			class="rise mt-4 max-w-[1000px] font-display text-5xl font-semibold leading-[1.04] tracking-[-0.02em] md:text-7xl lg:text-[88px]"
+			style="--d: 90ms"
+		>
+			Fresh Coast <span class="marker marker-draw">Dock &amp; Lift</span>
 		</h1>
-		<p class="mt-6 max-w-[760px] text-xl leading-relaxed text-ink-soft md:text-2xl">
+		<p class="rise mt-6 max-w-[760px] text-xl leading-relaxed text-ink-soft md:text-2xl" style="--d: 220ms">
 			A marketing site, content system and interactive dock designer for a West Michigan waterfront
 			service company, built by directing an AI coding agent.
 		</p>
 
-		<dl class="mt-12 grid gap-6 border-t-2 border-ink pt-8 sm:grid-cols-2 lg:grid-cols-4">
+		<dl class="rise mt-12 grid gap-6 border-t-2 border-ink pt-8 sm:grid-cols-2 lg:grid-cols-4" style="--d: 320ms">
 			{#each facts as fact}
 				<div>
 					<dt class="font-mono text-[13px] uppercase tracking-[0.12em] text-muted">{fact.label}</dt>
@@ -61,7 +66,7 @@
 				<dt class="font-mono text-[13px] uppercase tracking-[0.12em] text-muted">Live site</dt>
 				<dd class="mt-2 text-[17px]">
 					<a href="https://www.freshcoastdockandlift.com" target="_blank" rel="noopener noreferrer" class="link">
-						freshcoastdockandlift.com ↗
+						freshcoastdockandlift.com <span class="arrow-ne" aria-hidden="true">↗</span>
 					</a>
 				</dd>
 			</div>
@@ -69,7 +74,7 @@
 	</header>
 
 	<div class="wrap">
-		<figure class="overflow-hidden rounded-2xl border-2 border-ink bg-ink">
+		<figure class="overflow-hidden rounded-2xl border-2 border-ink bg-ink" data-reveal use:reveal={150}>
 			<img
 				src="/projects/fresh-coast-full.jpg"
 				alt="The Fresh Coast Dock & Lift homepage: a “Lake living, made easy.” headline over a photo of docks and covered boat lifts, with quick links to book, repair, shop and design a dock."
@@ -269,7 +274,7 @@
 	</div>
 
 	<div class="wrap">
-		<div class="flex flex-col items-start justify-between gap-6 rounded-3xl bg-orange p-8 sm:flex-row sm:items-center md:p-12">
+		<div data-reveal use:reveal class="flex flex-col items-start justify-between gap-6 rounded-3xl bg-orange p-8 sm:flex-row sm:items-center md:p-12">
 			<p class="font-display text-3xl font-semibold leading-tight md:text-4xl">Want something like this built?</p>
 			<a href="/#contact" class="btn btn-ink shrink-0">Get in touch</a>
 		</div>

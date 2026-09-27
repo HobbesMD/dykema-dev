@@ -6,17 +6,24 @@
 	import SectionHeading from '$lib/sectionHeading.svelte';
 	import ContactForm from '$lib/contactForm.svelte';
 	import DockArt from '$lib/dockArt.svelte';
+	import CountUp from '$lib/countUp.svelte';
+	import { reveal } from '$lib/reveal';
 
 	const description =
-		'Michael Dykema is a senior .NET developer focused on backend services and developer-platform modernization — Git migrations, CI/CD, and services built to last.';
+		'Michael Dykema is a senior .NET developer focused on backend services and developer-platform modernization — Git migrations, CI/CD, and the systems teams depend on.';
 
 	const impact = [
 		{
-			figure: '60+',
+			value: 60,
+			suffix: '+',
 			label: '.NET projects and services migrated from TFVC to Git, with new pipelines and code review'
 		},
-		{ figure: '90%', label: 'faster deployments — 10 minutes to under 2 — with CI/CD in Azure Pipelines' },
-		{ figure: '38%', label: 'less database storage from an Archive & Purge microservice I built solo' }
+		{
+			value: 90,
+			suffix: '%',
+			label: 'faster deployments — 10 minutes to under 2 — with CI/CD in Azure Pipelines'
+		},
+		{ value: 38, suffix: '%', label: 'less database storage from an Archive & Purge microservice I built solo' }
 	];
 
 	const interests = [
@@ -63,20 +70,22 @@
 	aria-labelledby="hero-heading"
 >
 	<div class="flex flex-col gap-6 md:gap-8">
-		<p class="kicker">Michael Dykema — Senior .NET Developer</p>
+		<p class="kicker rise">Michael Dykema — Senior .NET Developer</p>
 		<h1
 			id="hero-heading"
-			class="font-display text-[44px] font-semibold leading-[1.04] tracking-[-0.02em] sm:text-6xl md:text-7xl lg:text-8xl min-[1400px]:text-[112px] min-[1400px]:leading-[1.02]"
+			style="--d: 90ms"
+			class="rise font-display text-[34px] font-semibold leading-[1.04] tracking-[-0.02em] min-[375px]:text-[40px] sm:text-6xl md:text-7xl lg:text-8xl min-[1400px]:text-[112px] min-[1400px]:leading-[1.02]"
 		>
-			I build software that’s <span class="marker">built to last.</span>
+			<span class="block text-balance">I modernize the systems</span>
+			<span class="marker marker-draw whitespace-nowrap">teams depend on.</span>
 		</h1>
 	</div>
 	<div class="flex max-w-[560px] flex-col gap-7 xl:pb-3">
-		<p class="text-lg leading-relaxed text-ink-soft md:text-[19px]">
-			Backend services and developer-platform modernization at Auto-Owners Insurance. I find the
-			process gaps, pitch the fix, and own it from architecture through production.
+		<p class="rise text-lg leading-relaxed text-ink-soft md:text-[19px]" style="--d: 220ms">
+			Backend services, pipelines, and developer tooling at Auto-Owners Insurance. I find the process
+			gaps, pitch the fix, and own it from architecture through production.
 		</p>
-		<div class="flex flex-wrap gap-3">
+		<div class="rise flex flex-wrap gap-3" style="--d: 320ms">
 			<a href="#experience" class="btn btn-ink">See my work</a>
 			<a href="#contact" class="btn btn-outline">Get in touch</a>
 		</div>
@@ -86,12 +95,12 @@
 <!-- Impact band -->
 <div class="bg-ink text-paper">
 	<div class="wrap flex flex-col gap-10 py-16 md:py-20">
-		<h2 class="kicker text-mist">Selected impact</h2>
+		<h2 class="kicker text-mist" data-reveal use:reveal>Selected impact</h2>
 		<div class="grid gap-10 sm:grid-cols-3 sm:gap-8 lg:gap-16">
-			{#each impact as item}
-				<div class="flex flex-col gap-3">
+			{#each impact as item, i}
+				<div class="flex flex-col gap-3" data-reveal use:reveal={i * 120}>
 					<p class="font-display text-6xl font-semibold leading-none text-orange md:text-7xl lg:text-8xl">
-						{item.figure}
+						<CountUp value={item.value} suffix={item.suffix} />
 					</p>
 					<p class="text-base leading-normal md:text-lg">{item.label}</p>
 				</div>
@@ -101,7 +110,7 @@
 </div>
 
 <!-- About -->
-<section id="about" class="wrap grid gap-8 pt-24 md:pt-28 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-12 lg:pt-32 xl:grid-cols-[360px_minmax(0,1fr)] xl:gap-24">
+<section id="about" data-reveal use:reveal class="wrap grid gap-8 pt-24 md:pt-28 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-12 lg:pt-32 xl:grid-cols-[360px_minmax(0,1fr)] xl:gap-24">
 	<SectionHeading number="01" title="About" />
 	<div class="flex max-w-[760px] flex-col gap-6">
 		<p class="text-lg leading-relaxed text-ink-soft md:text-xl md:leading-[1.7]">
@@ -127,9 +136,9 @@
 
 <!-- Experience -->
 <section id="experience" class="wrap pt-24 md:pt-28 lg:pt-36">
-	<div class="flex flex-wrap items-end justify-between gap-4 border-b-2 border-ink pb-7">
+	<div class="flex flex-wrap items-end justify-between gap-4 border-b-2 border-ink pb-7" data-reveal use:reveal>
 		<SectionHeading number="02" title="Experience" />
-		<a href="/resume.pdf" target="_blank" rel="noopener" class="link text-[17px]">Full résumé (PDF) ↗</a>
+		<a href="/resume.pdf" target="_blank" rel="noopener" class="link text-[17px]">Full résumé (PDF) <span class="arrow-ne" aria-hidden="true">↗</span></a>
 	</div>
 	<div>
 		{#each jobs as job}
@@ -140,10 +149,12 @@
 
 <!-- Projects -->
 <section id="projects" class="wrap pt-20 md:pt-24 lg:pt-28">
-	<SectionHeading number="03" title="Projects" />
+	<div data-reveal use:reveal><SectionHeading number="03" title="Projects" /></div>
 	<div class="mt-10 flex flex-col gap-8">
 		<article
-			class="grid overflow-hidden rounded-2xl border-2 border-ink bg-white xl:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]"
+			data-reveal
+			use:reveal
+			class="group grid overflow-hidden rounded-2xl border-2 border-ink bg-white xl:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]"
 		>
 			<div
 				class="relative aspect-[4/3] border-b-2 border-ink bg-ink md:aspect-[16/10] xl:aspect-auto xl:min-h-[520px] xl:border-b-0 xl:border-r-2"
@@ -154,7 +165,7 @@
 						alt="The Fresh Coast Dock & Lift homepage"
 						width="1200"
 						height="984"
-						class="absolute inset-0 h-full w-full object-cover object-left-top"
+						class="absolute inset-0 h-full w-full object-cover object-left-top transition-transform duration-700 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
 						loading="lazy"
 					/>
 				{:else}
@@ -183,20 +194,22 @@
 					<span class="sr-only">Stack: </span>Next.js · TypeScript · Tailwind · Sanity · Resend · Vercel
 				</p>
 				<div class="mt-auto flex flex-wrap gap-x-6 gap-y-2 pt-2 text-[17px]">
-					<a href="/projects/fresh-coast" class="link">Read the case study →</a>
+					<a href="/projects/fresh-coast" class="link">Read the case study <span class="arrow-e" aria-hidden="true">→</span></a>
 					<a
 						href="https://www.freshcoastdockandlift.com"
 						target="_blank"
 						rel="noopener noreferrer"
 						class="link"
 					>
-						Visit site ↗
+						Visit site <span class="arrow-ne" aria-hidden="true">↗</span>
 					</a>
 				</div>
 			</div>
 		</article>
 
 		<article
+			data-reveal
+			use:reveal={100}
 			class="flex flex-col gap-5 rounded-2xl border-2 border-ink bg-white p-7 md:flex-row md:items-center md:justify-between md:gap-10 md:px-10 md:py-8"
 		>
 			<div class="flex flex-col gap-2.5">
@@ -215,7 +228,7 @@
 				rel="noopener noreferrer"
 				class="link shrink-0 text-[17px]"
 			>
-				View on GitHub ↗
+				View on GitHub <span class="arrow-ne" aria-hidden="true">↗</span>
 			</a>
 		</article>
 	</div>
@@ -225,6 +238,8 @@
 <div class="wrap pt-24 md:pt-28 lg:pt-36">
 	<section
 		id="contact"
+		data-reveal
+		use:reveal
 		class="grid gap-10 rounded-3xl bg-orange p-7 sm:p-12 xl:grid-cols-[minmax(0,1fr)_minmax(0,500px)] xl:gap-20 xl:p-20"
 		aria-labelledby="contact-heading"
 	>
@@ -237,8 +252,8 @@
 				Questions, opportunities, or a good disc golf course recommendation — send a note.
 			</p>
 			<div class="mt-auto flex gap-7 text-[17px]">
-				<a href="https://www.linkedin.com/in/michaeldykema/" target="_blank" rel="noopener noreferrer" class="link hover:decoration-ink">LinkedIn ↗</a>
-				<a href="https://github.com/HobbesMD" target="_blank" rel="noopener noreferrer" class="link hover:decoration-ink">GitHub ↗</a>
+				<a href="https://www.linkedin.com/in/michaeldykema/" target="_blank" rel="noopener noreferrer" class="link hover:decoration-ink">LinkedIn <span class="arrow-ne" aria-hidden="true">↗</span></a>
+				<a href="https://github.com/HobbesMD" target="_blank" rel="noopener noreferrer" class="link hover:decoration-ink">GitHub <span class="arrow-ne" aria-hidden="true">↗</span></a>
 			</div>
 		</div>
 		<ContactForm />
